@@ -8,6 +8,7 @@ import { TransactionForm } from "@/components/transaction-form"
 import { TransactionList } from "@/components/transaction-list"
 import { MonthlyChart } from "@/components/monthly-chart"
 import type { Transaction } from "@/types/transaction"
+import { CategoryPieChart } from "@/components/category-pie-chart"
 
 export default function Dashboard() {
   const [transactions, setTransactions] = useState<Transaction[]>([])
@@ -120,8 +121,10 @@ export default function Dashboard() {
               <DollarSign className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className={`text-2xl font-bold ${totalBalance >= 0 ? "text-green-600" : "text-red-600"}`}>
-                ${Math.abs(totalBalance).toFixed(2)}
+              <div className={`text-2xl font-bold ₹
+{totalBalance >= 0 ? "text-green-600" : "text-red-600"}`}>
+                ₹
+                {Math.abs(totalBalance).toFixed(2)}
               </div>
               <p className="text-xs text-muted-foreground">
                 {totalBalance >= 0 ? "Positive balance" : "Negative balance"}
@@ -135,7 +138,8 @@ export default function Dashboard() {
               <TrendingUp className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-green-600">${monthlyIncome.toFixed(2)}</div>
+              <div className="text-2xl font-bold text-green-600">₹
+              {monthlyIncome.toFixed(2)}</div>
               <p className="text-xs text-muted-foreground">Total income this period</p>
             </CardContent>
           </Card>
@@ -146,7 +150,8 @@ export default function Dashboard() {
               <Calendar className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-red-600">${monthlyExpenses.toFixed(2)}</div>
+              <div className="text-2xl font-bold text-red-600">₹
+              {monthlyExpenses.toFixed(2)}</div>
               <p className="text-xs text-muted-foreground">Total expenses this period</p>
             </CardContent>
           </Card>
@@ -162,6 +167,7 @@ export default function Dashboard() {
             </CardHeader>
             <CardContent>
               <MonthlyChart transactions={transactions} />
+              <CategoryPieChart transactions={transactions} />
             </CardContent>
           </Card>
 
